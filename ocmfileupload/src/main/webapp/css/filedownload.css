@@ -1,0 +1,137 @@
+@import
+	url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap')
+	;
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family: 'Roboto', sans-serif;
+}
+
+body {
+	width: 90%;
+	min-height: 60vh;
+	background: #4F6072;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.file__download {
+	width: 500px;
+	height: 380px;
+	margin: 20px;
+	box-shadow: 0 0 5px rgba(0, 0, 0, .3);
+}
+
+.file__download .header {
+	width: 100%;
+	height: 80px;
+	background: #4db6ac;
+	padding: 20px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border-radius: 5px 5px 0 0;
+}
+
+.file__download .header p {
+	color: #FFF;
+}
+
+.file__download .footer p {
+	color: #FFF;
+}
+
+.file__download .header p i.fa {
+	margin-right: 10px;
+}
+
+.file__download .header p span {
+	font-size: 1.5rem;
+	font-weight: 400;
+}
+
+.file__download .header p span span {
+	font-weight: 600;
+}
+
+.file__download .body {
+	background: #FFF;
+	width: 100%;
+	height: calc(110% - 80px);
+	border-radius: 0 0 0 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	text-align: center;
+}
+
+.file__download .body h2 {
+	color: #4db6ac;
+}
+
+.file__download .body button {
+	display: inline-block;
+}
+
+.file__download .body input[type="file"] {
+	display: none;
+}
+
+.file__download .body i.fa {
+	color: #d3d3d3;
+	margin-bottom: 20px;
+}
+
+.file__download .body p strong {
+	color: #4db6ac;
+	text-decoration: underline;
+}
+
+.file__download .body p span {
+	color: #4db6ac;
+	text-decoration: underline;
+}
+
+.file__download .footer {
+	width: 100%;
+	height: 40px;
+	background: #4db6ac;
+	padding: 20px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border-radius: 0 0 5px 5px;
+}
+
+.file__download input[type=submit] {
+	background-color: #4db6ac;
+	border: none;
+	color: white;
+	padding: 10px 16px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 15px;
+	font-weight: 500;
+	margin: 4px 2px;
+	cursor: pointer;
+}
+
+
+.file__download .BTNfooterH {
+	background-color: #4db6ac;
+	border: none;
+	color: white;
+	padding: 8px 14px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 13px;
+	font-weight: 500;
+	margin: 4px 2px;
+}
+

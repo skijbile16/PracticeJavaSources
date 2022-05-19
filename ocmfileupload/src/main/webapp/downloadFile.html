@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+<link rel="stylesheet" type="text/css" href="css/filedownload.css">
+<title>Impacto - Flex DMS Adapter</title>
+</head>
+<body>
+	<div class="file__download">
+		<div class="header">
+			<p>
+				<i class="fa fa-cloud-upload fa-2x"></i><span>Flexcube DMS
+					Adapter</span>
+			</p>
+		</div>
+		<form class="body" id="fileDownloadForm" name="fileDownloadForm">
+			<h2>File Download</h2>
+			<br> <br> <i class="fa fa-file-text-o fa-3x"></i> <input
+				type="submit" id="iadp_Download" value="Download File"> <input
+				type="text" id="iadp_docId" name="docId" value="docId"
+				hidden="false"> <br> <input type="text" id="response"
+				name="reponse" value="response" hidden="false"> <br> <input
+				class="BTNfooterH" value="Close" id="BTN_iadp_DMCAN"
+				onclick="window.close();" name="Cancel" type="button"> <br>
+			<br>
+			<div class=downloadformresponse>
+				<div id="fileDownloadError"></div>
+				<div id="fileDownloadSuccess"></div>
+			</div>
+		</form>
+		<div class="footer">
+			<p>
+				<span>Document Management System</span>
+			</p>
+		</div>
+	</div>
+	<script>
+		window.addEventListener("load", loadDoc);
+		function loadDoc() {
+			const params = new URLSearchParams(window.location.search);
+			try {
+				var docRef = params.get('documentReference');
+				document.getElementById("iadp_docId").value = docRef;
+			} catch (err) {
+				console.log(err);
+			}
+		}
+	</script>
+	<script src="filedownload.js"></script>
+</body>
+</html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>	
+<link rel="stylesheet" type="text/css" href="css/fileupload.css">
+<title>Impacto - Flex DMS Adapter</title>
+</head>
+<body>
+	<div class="file__upload">
+		<div class="header">
+			<p>
+				<i class="fa fa-cloud-upload fa-2x"></i><span>Flexcube DMS
+					Adapter</span>
+			</p>
+		</div>
+		<form class="body" name="fileUploadForm" id="fileUploadForm">
+			<h2>File Upload</h2>
+			<br><br>
+			<input type="file" id="fileUploadInput" name="file" size="50" accept=".jpeg, .jpg, .png, .pdf, .doc, .docx, .xls, .xlsx, .txt, .ppt">
+			<label for="fileUploadInput"> <i class="fa fa-file-text-o fa-3x"></i>
+				<p>
+					<strong>Browse files here </strong>
+				</p>
+			</label>
+			<br>
+			<h4> </h4>
+			    <script>
+        			$(document).ready(function() {
+            		$('input[type="file"]').change(function(e) {
+                	var filename = e.target.files[0].name;
+                	$("h4").text(filename + ' is the selected file.');
+ 			           });
+        			});
+    			</script>
+			 <br>
+			<div class ="inline_buttons"> 
+			<input type="submit" value="Upload File">
+			<input class="btn_close" value="Close" id="btn_iadp_close" onclick="window.parent.postMessage('CLOSE', '*')" name="Cancel" type="button">
+			</div>
+			<input type="text" class="hidden" id="iadp_documentCat" name="documentCat" value="documentCat" hidden="false">
+			<input type="text" class="hidden" id="iadp_documentType" name="documentType" value="documentType" hidden="false">
+            <input type="text" class="hidden" id="iadp_documentReference" name="documentReference" value="documentReference" hidden="false">
+            <input type="text" class="hidden" id="iadp_remarks" name="remarks" value="remarks" hidden="false">
+			<input type="text" class="hidden" id="iadp_fileContent" name="fileContent" value="fileContent" hidden="false">
+			<input type="text" class="hidden" id="iadp_cif" name="cif" value="cif" hidden="false">
+			<input type="text" class="hidden" id="iadp_lang" name="lang" value="lang" hidden="false">
+            <input type="text" class="hidden" id="iadp_rowIndex" name="rowIndex" value="rowIndex" hidden="false">
+            <br>
+            <div class=uploadformresponse>
+          		<div id="fileUploadError"></div>
+          		<div id="fileUploadSuccess"></div>
+       	 	</div>
+		</form>
+		<div class="footer">
+			<p><span>Document Management System</span></p>
+		</div>
+	</div>
+	  <script>
+         window.addEventListener("load", loadDoc);
+         
+         function loadDoc() {
+         	const params = new URLSearchParams(window.location.search);
+         	try {
+         		var cifID = params.get('cif');
+         		document.getElementById("iadp_cif").value = cifID;
+         	} catch (err) {
+         		console.log(err);
+         	}
+         }
+      </script>
+      <script src="fileupload.js"></script>
+</body>
+</html>

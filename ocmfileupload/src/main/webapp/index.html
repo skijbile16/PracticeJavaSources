@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport"
+	content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+<title>Impacto - Flex DMS Adapter</title>
+<link rel="stylesheet" href="css/main.css" />
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+	<img id="loading" src="img/iadp_DMSWait.gif"
+		style="visibility: hidden; position: absolute; left: 40%; top: 40%; z-index: 1000;">
+	<div class="upload-container">
+		<div class="upload-header">
+			<h2> Flexcube DMS Adapter</h2>
+		</div>
+		<div class="upload-content">
+			<div class="single-upload">
+				<h3>File Upload</h3>
+				<form id="singleUploadForm" name="singleUploadForm">
+					<input id="singleFileUploadInput" type="file" name="file"
+						class="file-input" required
+						accept=".jpeg, .jpg, .png, .pdf, .doc, .docx, .xls, .xlsx, .txt, .ppt">
+					<button type="submit" class="primary submit-btn">Submit</button>
+					<input type="text" class="hidden" id="iadp_documentCat"
+						name="documentCat" value="documentCat" hidden="false"> <input
+						type="text" class="hidden" id="iadp_documentType"
+						name="documentType" value="documentType" hidden="false"> <input
+						type="text" class="hidden" id="iadp_documentReference"
+						name="documentReference" value="documentReference" hidden="false">
+					<input type="text" class="hidden" id="iadp_remarks" name="remarks"
+						value="remarks" hidden="false"> <input type="text"
+						class="hidden" id="iadp_fileContent" name="fileContent"
+						value="fileContent" hidden="false"> <input type="text"
+						class="hidden" id="iadp_cif" name="cif" value="cif" hidden="false">
+					<input type="text" class="hidden" id="iadp_lang" name="lang"
+						value="lang" hidden="false"> <input type="text"
+						class="hidden" id="iadp_rowIndex" name="rowIndex" value="rowIndex"
+						hidden="false">
+				</form>
+				<div class="upload-response">
+					<div id="singleFileUploadError"></div>
+					<div id="singleFileUploadSuccess"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script>
+		window.addEventListener("load", loadDoc);
+		function loadDoc() {
+			const params = new URLSearchParams(window.location.search);
+			try {
+				var cifID = params.get('cif');
+				document.getElementById("iadp_cif").value = cifID;
+			} catch (err) {
+				console.log(err);
+			}
+		}
+	</script>
+	<script src="main.js"></script>
+</body>
+</html>

@@ -1,0 +1,97 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+	http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context-3.0.xsd
+	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.2.xsd
+	http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd">
+
+	<!-- It register the beans in context and scan the annotations inside beans 
+		and activate them -->
+	<context:component-scan base-package="com.jmr" />
+
+	<!-- This allow for dispatching requests to Controllers by registering two 
+		beans - DefaultAnnotationHandlerMapping and AnnotationMethodHandlerAdapter -->
+	<mvc:annotation-driven />
+
+	<!-- This helps in mapping the logical view names to directly view files 
+		under a certain pre-configured directory -->
+	<mvc:resources mapping="/**" location="/" />
+	<bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="" />
+		<property name="suffix" value=".html" />
+	</bean>
+
+	<!-- This resolves messages from resource bundles for different locales -->
+	<bean id="messageSource"
+		class="org.springframework.context.support.ResourceBundleMessageSource">
+		<property name="basename" value="messages" />
+	</bean>
+
+	<!-- To validate the posted add employee form -->
+	<!-- <bean id="employeeValidator" class="com.jmr.validator.EmployeeValidator" 
+		/> -->
+
+	<!-- This produces a container-managed EntityManagerFactory; rather than 
+		application-managed EntityManagerFactory as in case of LocalEntityManagerFactoryBean -->
+	<bean id="entityManagerFactoryBeanOne"
+		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+		<property name="persistenceUnitName" value="persistenceUnitNameOne" />
+		<!-- <property name="dataSource" ref="dataSourceOne" />-->
+		<!-- This makes /META-INF/persistence.xml is no longer necessary -->
+		<property name="packagesToScan" value="com.jmr" />
+		<!-- JpaVendorAdapter implementation for Hibernate EntityManager. Exposes 
+			Hibernate's persistence provider and EntityManager extension interface -->
+		<property name="jpaVendorAdapter">
+			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter" />
+		</property>
+		<property name="jpaProperties">
+			<props>
+				<!-- <prop key="hibernate.hbm2ddl.auto">validate</prop> -->
+				<prop key="show_sql">true</prop>
+				<prop key="hibernate.dialect">org.hibernate.dialect.Oracle10gDialect</prop>
+			</props>
+		</property>
+	</bean>
+ 	<!--  JBOSS Server Configuration 
+       <bean id="dataSourceOne" class="org.springframework.jndi.JndiObjectFactoryBean"
+		scope="singleton">
+	<property name="jndiName" value="java:jboss/jdbc/ChequeBook" />
+		 <property name="jndiName" value="jdbc/mtmxconverter" /> 
+		<property name="resourceRef" value="true" />
+	    </bean>  --> 
+	<!-- This transaction manager is appropriate for applications that use a 
+		single JPA EntityManagerFactory for transactional data access. JTA (usually 
+		through JtaTransactionManager) is necessary for accessing multiple transactional 
+		resources within the same transaction. -->
+	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+		<property name="entityManagerFactory" ref="entityManagerFactoryBeanOne" />
+	</bean>
+	<!-- <bean id="transactionManagerTwo" class="org.springframework.orm.jpa.JpaTransactionManager">
+		<property name="entityManagerFactory" ref="entityManagerFactoryBeanTwo" />
+	</bean> -->
+	<!-- File Upload Functionality -->
+	 <bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<!--setting maximum upload size-->
+		<property name="maxUploadSize" value="100000" />
+
+	</bean>
+	<!-- responsible for registering the necessary Spring components that power 
+		annotation-driven transaction management; such as when @Transactional methods 
+		are invoked -->
+	<tx:annotation-driven />
+
+	<!-- Resource Bean Definition -->
+	<bean id="jmrLogger" class="com.jmr.framework.util.JMRLogger" />
+	<bean id="userContext" class="com.jmr.framework.util.UserContext" />
+	 <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
+		<property name="messageConverters" ref="jsonMessageConverter"/>
+	</bean>
+	<!-- Configure bean to convert JSON to POJO and vice versa -->
+	<bean id="jsonMessageConverter" class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+	</bean>	 
+</beans>
